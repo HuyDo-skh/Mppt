@@ -1,0 +1,327 @@
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #ffffff; /* Đổi màu nền thành xanh */
+    color: rgb(255, 255, 255); /* Đổi màu chữ mặc định thành trắng */
+}
+
+/* Nền container */
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 10px;
+    border-radius: 10px;
+    background: #397dc6; /* Màu nền của container */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ */
+}
+
+h1 {
+    color: #007bff;
+}
+
+.control-panel {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+input {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Nền nút gửi */
+.send-btn {
+    padding: 10px 15px;
+    border: none;
+    background: #00509e; /* Màu tối hơn cho nút gửi */
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background: #003d7a; /* Màu tối hơn khi hover */
+}
+
+#statusMessage {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #28a745;
+    text-align:center;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.slider-container label {
+    font-size: 16px;
+    width: 120px; /* Đặt chiều rộng cố định cho nhãn */
+    text-align: left; /* Căn trái văn bản trong nhãn */
+}
+
+.slider-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa thanh trượt và ô nhập */
+    flex-grow: 1; /* Đảm bảo nhóm thanh trượt chiếm không gian còn lại */
+}
+
+.slider-input-group input[type="range"] {
+    flex-grow: 1;
+    height: 8px;
+    background: linear-gradient(to right, #007bff, #0056b3); /* Màu gradient xanh */
+    border-radius: 5px;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none; /* Loại bỏ kiểu mặc định trên Chrome/Safari */
+    appearance: none; /* Loại bỏ kiểu mặc định trên các trình duyệt hỗ trợ */
+}
+
+.slider-input-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Loại bỏ kiểu mặc định trên Chrome/Safari */
+    appearance: none; /* Loại bỏ kiểu mặc định trên các trình duyệt hỗ trợ */
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(to bottom, #5685b9, white); /* Màu gradient từ #5685b9 đến trắng */
+    border-radius: 50%; /* Bo tròn nút kéo */
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ cho nút kéo */
+}
+
+.slider-input-group input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(to bottom, #5685b9, white); /* Màu gradient từ #5685b9 đến trắng */
+    border-radius: 50%; /* Bo tròn nút kéo */
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ cho nút kéo */
+}
+
+.slider-input-group input[type="range"]::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(to bottom, #5685b9, white); /* Màu gradient từ #5685b9 đến trắng */
+    border-radius: 50%; /* Bo tròn nút kéo */
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ cho nút kéo */
+}
+
+.slider-input-group input[type="number"] {
+    width: 70px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input[type="number"] {
+    -moz-appearance: textfield; /* Loại bỏ nút tăng/giảm trên Firefox */
+    -webkit-appearance: none; /* Loại bỏ nút tăng/giảm trên Chrome/Safari */
+    appearance: none; /* Loại bỏ nút tăng/giảm trên các trình duyệt hỗ trợ */
+    width: 70px; /* Đặt chiều rộng cố định */
+    padding-right: 20px; /* Tạo khoảng trống cho đơn vị */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.input-wrapper .unit {
+    position: absolute;
+    right: 10px; /* Đặt chữ "V" hoặc "A" bên trong ô nhập */
+    font-size: 14px;
+    color: #555;
+    pointer-events: none; /* Đảm bảo chữ không thể được chọn */
+}
+
+/* Nền tab */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    background-color: #3a7dc5; /* Màu tối hơn cho nền tab */
+    padding: 10px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ */
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #387dc5;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ luôn hiển thị */
+    transition: box-shadow 0.3s ease; /* Hiệu ứng chuyển đổi mượt */
+}
+
+.tab-button:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Tăng bóng đổ khi hover */
+}
+
+.tab-button.active {
+    border-bottom: 3px solid #ff5722; /* Đường gạch chân cho tab đang hoạt động */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ mạnh hơn cho tab đang hoạt động */
+}
+
+/* Nền tab */
+.tab-content {
+    display: none; /* Ẩn nội dung tab mặc định */
+    padding: 20px;
+    background-color: #2e69a3; /* Màu tối hơn cho nội dung tab */
+    color: white; /* Đổi màu chữ thành trắng */
+    border-radius: 10px; /* Bo góc cho nội dung tab */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho nội dung tab */
+}
+
+.tab-content.active {
+    display: block; /* Hiển thị nội dung tab đang hoạt động */
+}
+
+.status-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.status-icon {
+    font-size: 24px;
+}
+
+.status-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.status-power {
+    display: flex;
+    align-items: baseline;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.power-value {
+    font-size: 48px;
+}
+
+.power-unit {
+    font-size: 24px;
+    margin-left: 5px;
+}
+
+/* Nền chi tiết trạng thái */
+.status-details {
+    background: none; /* Loại bỏ màu nền riêng */
+    padding: 0; /* Loại bỏ padding nếu không cần thiết */
+    margin-bottom: 20px;
+    box-shadow: none; /* Loại bỏ bóng đổ riêng */
+}
+
+.section-title-wrapper {
+    background-color: #4e8ac9; /* Giữ màu nền nổi bật cho tiêu đề */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: white; /* Màu chữ trắng */
+    margin: 0;
+    text-align: center;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ffffff; /* Đường kẻ trắng */
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+/* Nền Solar */
+.solar-section {
+    background-color: #007bff; /* Màu nền xanh cho phần Solar */
+    color: white;
+    padding: 20px;
+    margin: 0; /* Loại bỏ margin */
+    border-radius: 10px; /* Bo góc */
+    width: 100%; /* Đảm bảo phần nền lấp đầy chiều ngang container */
+    box-sizing: border-box; /* Bao gồm padding trong kích thước tổng */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.solar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.solar-icon {
+    font-size: 24px;
+}
+
+.solar-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.solar-power {
+    display: flex;
+    align-items: baseline;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.power-value {
+    font-size: 48px;
+}
+
+.power-unit {
+    font-size: 24px;
+    margin-left: 5px;
+}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Tab điều hướng -->
+        <div class="tab-container">
+            <button class="tab-button active" onclick="showTab('status')">STATUS</button>
+            <button class="tab-button" onclick="showTab('setting')">SETTING</button>
+        </div>
+
+        <!-- Nội dung tab STATUS -->
+        <div id="status" class="tab-content active">
+            <!-- Phần hiển thị Solar và Battery -->
+            <div class="status-details">
+                <!-- Solar -->
+                <div class="section-title-wrapper">
+                    <h4 class="section-title">Solar</h4>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Voltage</span>
+                    <span class="status-value">36.00V</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Current</span>
+                    <span class="status-value">11.8A</span>
+                </div>
+
+                <!-- Battery -->
+                <div class="section-title-wrapper">
+                    <h4 class="section-title">Battery</h4>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Battery Type</span>
+                    <span class="status-value">PIN</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Voltage</span>
+                    <span class="status-value">28.30V</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Current</span>
+                    <span class="status-value">15.0A</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">State</span>
+                    <span class="status-value">Bulk</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nội dung tab SETTING -->
+        <div id="setting" class="tab-content">
+            <h3>Cài đặt</h3>
+
+            <!-- Nhập lệnh điều khiển -->
+            <h3>Nhập lệnh điều khiển</h3>
+            <div class="control-panel">
+                <input type="text" id="commandInput" placeholder="Nhập lệnh..." onfocus="clearInput()">
+                <button class="send-btn" onclick="sendCommand()">Gửi</button>
+            </div>
+
+            <!-- Thanh trượt Điện áp sạc -->
+            <div class="slider-container">
+                <label for="vsetSlider">Điện áp sạc:</label>
+                <div class="slider-input-group">
+                    <input type="range" id="vsetSlider" min="0" max="100" step="0.1" value="50" oninput="updateVsetValue()">
+                    <div class="input-wrapper">
+                        <input type="number" id="vsetInput" min="0" max="100" step="0.1" value="50" oninput="syncVsetSlider()">
+                        <span class="unit">V</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thanh trượt Dòng điện sạc -->
+            <div class="slider-container">
+                <label for="isetSlider">Dòng điện sạc:</label>
+                <div class="slider-input-group">
+                    <input type="range" id="isetSlider" min="0" max="100" step="0.1" value="50" oninput="updateIsetValue()">
+                    <div class="input-wrapper">
+                        <input type="number" id="isetInput" min="0" max="100" step="0.1" value="50" oninput="syncIsetSlider()">
+                        <span class="unit">A</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thanh trượt Dòng điện Full -->
+            <div class="slider-container">
+                <label for="ifullSlider">Dòng điện Full:</label>
+                <div class="slider-input-group">
+                    <input type="range" id="ifullSlider" min="0" max="10" step="0.1" value="5" oninput="updateIfullValue()">
+                    <div class="input-wrapper">
+                        <input type="number" id="ifullInput" min="0" max="10" step="0.1" value="5" oninput="syncIfullSlider()">
+                        <span class="unit">A</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function clearInput() {
+            // Xóa nội dung trong ô nhập khi người dùng nhấn vào ô
+            document.getElementById("commandInput").value = "";
+        }
+
+        function sendCommand() {
+            let command = document.getElementById("commandInput").value;
+            if (command.trim() === "") {
+                document.getElementById("statusMessage").innerText = "Vui lòng nhập lệnh!";
+                return;
+            }
+
+            document.getElementById("statusMessage").innerText = "Đã gửi lệnh: " + command;
+
+            // Giả lập gửi dữ liệu đến ESP32 (có thể thay thế bằng AJAX/WebSocket)
+            console.log("Gửi đến ESP32:", command);
+        }
+
+        function updateVsetValue() {
+            let vsetValue = document.getElementById("vsetSlider").value;
+            document.getElementById("vsetInput").value = vsetValue; // Đồng bộ giá trị với ô nhập
+            document.getElementById("vsetValue").innerText = vsetValue; // Hiển thị giá trị
+            console.log("Vset:", vsetValue);
+        }
+
+        function syncVsetSlider() {
+            let vsetInput = document.getElementById("vsetInput").value;
+            document.getElementById("vsetSlider").value = vsetInput; // Đồng bộ giá trị với thanh trượt
+            document.getElementById("vsetValue").innerText = vsetInput; // Hiển thị giá trị
+            console.log("Vset:", vsetInput);
+        }
+
+        function updateIsetValue() {
+            let isetValue = document.getElementById("isetSlider").value;
+            document.getElementById("isetInput").value = isetValue; // Đồng bộ giá trị với ô nhập
+            document.getElementById("isetValue").innerText = isetValue; // Hiển thị giá trị
+            console.log("Iset:", isetValue);
+        }
+
+        function syncIsetSlider() {
+            let isetInput = document.getElementById("isetInput").value;
+            document.getElementById("isetSlider").value = isetInput; // Đồng bộ giá trị với thanh trượt
+            document.getElementById("isetValue").innerText = isetInput; // Hiển thị giá trị
+            console.log("Iset:", isetInput);
+        }
+
+        function updateIfullValue() {
+            let ifullValue = document.getElementById("ifullSlider").value;
+            document.getElementById("ifullInput").value = ifullValue; // Đồng bộ giá trị với ô nhập
+            console.log("Ifull:", ifullValue);
+        }
+
+        function syncIfullSlider() {
+            let ifullInput = document.getElementById("ifullInput").value;
+            document.getElementById("ifullSlider").value = ifullInput; // Đồng bộ giá trị với thanh trượt
+            console.log("Ifull:", ifullInput);
+        }
+
+        function showTab(tabId) {
+            // Ẩn tất cả nội dung tab
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Xóa trạng thái "active" của tất cả nút
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Hiển thị nội dung tab được chọn
+            document.getElementById(tabId).classList.add('active');
+
+            // Đánh dấu nút tương ứng là "active"
+            const activeButton = Array.from(buttons).find(button => button.textContent === tabId.toUpperCase());
+            if (activeButton) activeButton.classList.add('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const solarValuePath = document.getElementById("solarValuePath");
+            const solarSliderThumb = document.getElementById("solarSliderThumb");
+            const solarPowerValue = document.getElementById("solarPowerValue");
+            const sliderValueText = document.getElementById("sliderValueText");
+
+            let maxValue = 500; // Giá trị tối đa
+            let currentValue = 425; // Giá trị hiện tại
+
+            function updateSolarSlider(value) {
+                // Tính toán tỷ lệ
+                const percentage = value / maxValue;
+                const dashArrayValue = percentage * 251.2; // Tổng chiều dài đường cong là 251.2
+
+                // Cập nhật đường cong
+                solarValuePath.setAttribute("stroke-dasharray", `${dashArrayValue} 251.2`);
+
+                // Cập nhật vị trí nút kéo
+                const angle = percentage * 270; // Góc từ 0 đến 270 độ
+                const radians = (angle * Math.PI) / 180;
+                const cx = 50 + 40 * Math.cos(Math.PI + radians); // Tọa độ x
+                const cy = 90 + 40 * Math.sin(Math.PI + radians); // Tọa độ y
+                solarSliderThumb.setAttribute("cx", cx);
+                solarSliderThumb.setAttribute("cy", cy);
+
+                // Cập nhật giá trị hiển thị
+                solarPowerValue.textContent = value;
+
+                // Cập nhật vị trí và giá trị của text
+                sliderValueText.setAttribute("x", cx);
+                sliderValueText.setAttribute("y", cy + 5); // Hiển thị giá trị ngay dưới nút
+                sliderValueText.textContent = value;
+            }
+
+            // Khởi tạo giá trị ban đầu
+            updateSolarSlider(currentValue);
+        });
+    </script>
+</body>
+</html>
